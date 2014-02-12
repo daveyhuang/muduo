@@ -14,8 +14,6 @@
 #include <muduo/base/Timestamp.h>
 #include <muduo/net/protobuf/ProtobufCodecLite.h>
 
-#include <boost/noncopyable.hpp>
-
 namespace muduo
 {
 namespace net
@@ -38,7 +36,7 @@ class RpcMessage;
 //
 
 // TODO: re-implement with typedef of ProtobufCodecT
-class RpcCodec : boost::noncopyable
+class RpcCodec : noncopyable
 {
  public:
   typedef std::function<void (const TcpConnectionPtr&,

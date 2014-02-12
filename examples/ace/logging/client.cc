@@ -20,7 +20,7 @@ namespace logging
 {
 
 // same as asio/char/client.cc
-class LogClient : boost::noncopyable
+class LogClient : noncopyable
 {
  public:
   LogClient(EventLoop* loop, const InetAddress& serverAddr)
