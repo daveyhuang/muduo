@@ -8,8 +8,6 @@
 #include <muduo/net/TcpClient.h>
 #include <muduo/net/protobuf/ProtobufCodecLite.h>
 
-#include <boost/bind.hpp>
-
 #include <iostream>
 #include <stdio.h>
 
@@ -29,12 +27,12 @@ class LogClient : boost::noncopyable
     : client_(loop, serverAddr, "LogClient"),
       codec_(&LogRecord::default_instance(),
              "LOG0",
-             boost::bind(&LogClient::onMessage, this, _1, _2, _3))
+             std::bind(&LogClient::onMessage, this, _1, _2, _3))
   {
     client_.setConnectionCallback(
-        boost::bind(&LogClient::onConnection, this, _1));
+        std::bind(&LogClient::onConnection, this, _1));
     client_.setMessageCallback(
-        boost::bind(&ProtobufCodecLite::onMessage, &codec_, _1, _2, _3));
+        std::bind(&ProtobufCodecLite::onMessage, &codec_, _1, _2, _3));
     client_.enableRetry();
   }
 
