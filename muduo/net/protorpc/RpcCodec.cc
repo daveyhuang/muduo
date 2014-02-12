@@ -15,8 +15,6 @@
 #include <muduo/net/protorpc/rpc.pb.h>
 #include <muduo/net/protorpc/google-inl.h>
 
-#include <boost/bind.hpp>
-
 using namespace muduo;
 using namespace muduo::net;
 
@@ -35,7 +33,7 @@ RpcCodec::RpcCodec(const ProtobufMessageCallback& messageCb,
     : messageCallback_(messageCb),
       codec_(&RpcMessage::default_instance(),
              "RPC0",
-             boost::bind(&RpcCodec::onRpcMessage, this, _1, _2, _3),
+             std::bind(&RpcCodec::onRpcMessage, this, _1, _2, _3),
              ProtobufCodecLite::RawMessageCallback(),
              errorCb)
 {

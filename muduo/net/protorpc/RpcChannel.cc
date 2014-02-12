@@ -13,19 +13,17 @@
 
 #include <google/protobuf/descriptor.h>
 
-#include <boost/bind.hpp>
-
 using namespace muduo;
 using namespace muduo::net;
 
 RpcChannel::RpcChannel()
-  : codec_(boost::bind(&RpcChannel::onRpcMessage, this, _1, _2, _3))
+  : codec_(std::bind(&RpcChannel::onRpcMessage, this, _1, _2, _3))
 {
   LOG_INFO << "RpcChannel::ctor - " << this;
 }
 
 RpcChannel::RpcChannel(const TcpConnectionPtr& conn)
-  : codec_(boost::bind(&RpcChannel::onRpcMessage, this, _1, _2, _3)),
+  : codec_(std::bind(&RpcChannel::onRpcMessage, this, _1, _2, _3)),
     conn_(conn)
 {
   LOG_INFO << "RpcChannel::ctor - " << this;

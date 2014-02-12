@@ -14,9 +14,7 @@
 #include <muduo/base/Timestamp.h>
 #include <muduo/net/protobuf/ProtobufCodecLite.h>
 
-#include <boost/function.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/shared_ptr.hpp>
 
 namespace muduo
 {
@@ -25,7 +23,7 @@ namespace net
 
 class Buffer;
 class TcpConnection;
-typedef boost::shared_ptr<TcpConnection> TcpConnectionPtr;
+typedef std::shared_ptr<TcpConnection> TcpConnectionPtr;
 
 class RpcMessage;
 
@@ -43,9 +41,9 @@ class RpcMessage;
 class RpcCodec : boost::noncopyable
 {
  public:
-  typedef boost::function<void (const TcpConnectionPtr&,
-                                const RpcMessage&,
-                                Timestamp)> ProtobufMessageCallback;
+  typedef std::function<void (const TcpConnectionPtr&,
+                              const RpcMessage&,
+                              Timestamp)> ProtobufMessageCallback;
 
   typedef ProtobufCodecLite::ErrorCallback ErrorCallback;
 
